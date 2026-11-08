@@ -1,4 +1,4 @@
-const CACHE='cac-github-costing-v1';
+const CACHE='cac-github-costing-v2';
 const FILES=['./','./index.html','./style.css','./costing.js','./app.js','./pwa.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const path of FILES){const response=await fetch(new Request(path,{cache:'reload',credentials:'same-origin'}));if(!response.ok||response.redirected)throw Error('Unable to cache app');await cache.put(path,response);}})());});
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('cac-github-costing-')&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));
